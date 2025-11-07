@@ -15,11 +15,11 @@ class TONClient:
         ))
 
     async def generate_deposit_address(self, user_id: int):
-        # Генерируем уникальный адрес кошелька для депозита.
-        # На практике это может быть один кошелек бота, а user_id используется в комментарии (payload) транзакции.
-        # Но для лучшего отслеживания можно генерировать отдельные адреса.
-        # Здесь для простоты вернем один статический адрес бота.
-        # В реальном проекте рассмотрите использование Wallets с разными сериями.
+        '''Генерируем уникальный адрес кошелька для депозита.
+        На практике это может быть один кошелек бота, а user_id используется в комментарии (payload) транзакции.
+        Но для лучшего отслеживания можно генерировать отдельные адреса.
+        Здесь для простоты вернем один статический адрес бота.
+        В реальном проекте рассмотрите использование Wallets с разными сериями. '''
         BOT_WALLET_ADDRESS = "EQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACM9"  # Замените на адрес вашего кошелька бота
         return BOT_WALLET_ADDRESS
 
@@ -39,8 +39,7 @@ class TONClient:
                 }
             }
         """ % address
-        # Это упрощенный пример. В реальности нужно использовать GraphQL или методы toncenter.
-        # Вместо этого мы будем использовать get_transactions из toncenter-python
+   
 
     async def get_transactions(self, address: str, limit: int = 10):
         # Более реалистичный метод через toncenter API
@@ -54,11 +53,7 @@ class TONClient:
                 return data.get("result", [])
 
     async def send_ton(self, from_seed: str, to_address: str, amount: float, comment: str = ""):
-        # Отправка TON. from_seed - seed фраза кошелька бота.
-        # ВАЖНО: Безопасно храните seed фразу!
-        # Это сложная операция, требующая подписи транзакции.
-        # Для продакшена используйте надежный кошелек или кастодиальное решение.
-        # Это примерная структура.
+        
         key_pair = KeyPair.from_seed(from_seed)
         message = await self.client.abi.encode_message(
             ParamsOfEncodeMessage(
